@@ -52,6 +52,8 @@ urlpatterns = [
         name="schema-swagger-ui",
     ),
 
+    path('api/v1/auth/', include('tms_auth.urls'), name='auth'),
+
     path("__debug__/", include("debug_toolbar.urls")),
 ]
 

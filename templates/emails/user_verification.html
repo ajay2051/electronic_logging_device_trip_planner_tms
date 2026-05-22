@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                "Helvetica Neue", Arial, sans-serif;
+            background-color: #f4f7fb;
+            line-height: 1.6;
+        }
+
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .header {
+            background: #041520;
+            padding: 28px 40px;
+        }
+
+        .logo {
+            height: 48px;
+            display: block;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .greeting {
+            font-size: 22px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 20px;
+        }
+
+        .message {
+            font-size: 16px;
+            color: #5b6470;
+            margin-bottom: 28px;
+        }
+
+        .cta-wrapper {
+            text-align: left;
+            margin-bottom: 32px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #00c2ff 0%, #00e0b8 100%);
+            color: #ffffff !important;
+            text-decoration: none;
+            padding: 16px 34px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+            box-shadow: 0 8px 20px rgba(0, 194, 255, 0.25);
+        }
+
+        .fallback-section {
+            background-color: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 28px;
+        }
+
+        .fallback-text {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 10px;
+        }
+
+        .verification-link {
+            background-color: #ffffff;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 12px;
+            font-family: monospace;
+            color: #00a8d6;
+            word-break: break-all;
+        }
+
+        .security-notice {
+            background-color: #ecfeff;
+            border: 1px solid #a5f3fc;
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 28px;
+        }
+
+        .security-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 4px;
+        }
+
+        .security-text {
+            font-size: 14px;
+            color: #475569;
+        }
+
+        .closing {
+            color: #6b7280;
+            margin-top: 32px;
+            margin-bottom: 6px;
+        }
+
+        .signature {
+            color: #00b8d9;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .footer {
+            background-color: #f8fafc;
+            border-top: 1px solid #e5e7eb;
+            padding: 24px 40px;
+            text-align: center;
+        }
+
+        .company-info {
+            color: #94a3b8;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        @media only screen and (max-width: 600px) {
+            body {
+                padding: 0;
+            }
+
+            .email-container {
+                border-radius: 0;
+            }
+
+            .header,
+            .content,
+            .footer {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .cta-button {
+                display: block;
+                text-align: center;
+            }
+
+            .greeting {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <div class="logo">
+  <img src="https://eld-tms-fe.vercel.app/logo.png" alt="ELD" style="height: 40px; width: auto; margin-right: 10px;">
+</div>
+        </div>
+
+        <div class="content">
+            <div class="greeting">Hi {{ first_name }} {{ last_name }},</div>
+
+            <div class="message">
+                Thank you for signing up for Spotter! To complete your registration and secure your account, please verify your email address by clicking the button below.
+            </div>
+
+            <a href="{{ verification_link }}" class="cta-button">Activate Your Account</a>
+
+            <div class="fallback-section">
+                <div class="fallback-text">If the button above doesn't work, copy and paste this link into your browser:</div>
+                <div class="verification-link">{{ verification_link }}</div>
+            </div>
+
+            <div class="security-notice">
+                <div class="security-icon">⚠️</div>
+                <div>
+                    <div class="security-title">Security Notice</div>
+                    <div class="security-text">For your security, this link will expire in 24 hours.</div>
+                </div>
+            </div>
+
+            <div class="message">
+                If you did not create an account on Spotter, you can safely disregard this email.
+            </div>
+
+            <div class="closing">Thank you,</div>
+            <div class="signature">The Spotter AI Team</div>
+        </div>
+
+        <div class="footer">
+            <div class="company-info">
+                Spotter AI Inc.<br>
+                251 Little Falls Dr. Wilmington DE 19808, USA
+            </div>
+        </div>
+    </div>
+</body>
+</html>
