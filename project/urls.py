@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import path, include
+from django.urls import include, path
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
@@ -53,6 +53,7 @@ urlpatterns = [
     ),
 
     path('api/v1/auth/', include('tms_auth.urls'), name='auth'),
+    path('api/v1/route/', include('route.urls'), name='route'),
 
     path("__debug__/", include("debug_toolbar.urls")),
 ]

@@ -31,261 +31,231 @@ class CreateUserView(generics.CreateAPIView):
 
     @swagger_auto_schema(
         operation_id='create_user',
-        operation_description='Create a new user account with validation',
+        operation_description='Create a new user account',
         request_body=openapi.Schema(
             type=openapi.TYPE_OBJECT,
-            required=["full_name", "email", "password", "date_of_birth"],
+            required=[
+                "first_name",
+                "last_name",
+                "email",
+                "password"
+            ],
             properties={
-                "us_visa_status": openapi.Schema(
-                    type=openapi.TYPE_STRING,
-                    description="US visa status of the user",
-                    example="F1"
-                ),
-                "study_level": openapi.Schema(
-                    type=openapi.TYPE_STRING,
-                    description="Level of study",
-                    example="Bachelor's"
-                ),
                 "first_name": openapi.Schema(
                     type=openapi.TYPE_STRING,
-                    description="First name (max 20 characters, letters only)",
+                    description="First name",
                     maxLength=20,
-                    example="John Doe",
-                    pattern="^[a-zA-Z\\s]+$"
+                    example="John"
                 ),
+
                 "last_name": openapi.Schema(
                     type=openapi.TYPE_STRING,
-                    description="Last name (max 20 characters, letters only)",
+                    description="Last name",
                     maxLength=20,
-                    example="John Doe",
-                    pattern="^[a-zA-Z\\s]+$"
+                    example="Doe"
                 ),
+
                 "email": openapi.Schema(
                     type=openapi.TYPE_STRING,
                     format=openapi.FORMAT_EMAIL,
-                    description="Valid email address (max 50 characters)",
-                    maxLength=50,
-                    example="john.doe@example.com"
+                    description="User email address",
+                    example="john@example.com"
                 ),
+
                 "user_number": openapi.Schema(
                     type=openapi.TYPE_STRING,
-                    description="User Phone number",
-                    maxLength=20,
+                    description="Phone number",
                     example="+9779852314785"
                 ),
+
                 "password": openapi.Schema(
                     type=openapi.TYPE_STRING,
                     format=openapi.FORMAT_PASSWORD,
-                    description="Password (8-16 characters, must contain uppercase letter and special character)",
-                    minLength=8,
-                    maxLength=16,
+                    description="Password",
                     example="MyPassword123!"
                 ),
+
                 "country": openapi.Schema(
                     type=openapi.TYPE_STRING,
-                    description="Country of origin (max 30 characters)",
-                    maxLength=30,
-                    example="United States"
+                    description="Country name",
+                    example="Nepal"
                 ),
-                "date_of_birth": openapi.Schema(
-                    type=openapi.TYPE_STRING,
-                    format=openapi.FORMAT_DATE,
-                    description="Date of birth (must be 16+ years old, format: YYYY-MM-DD)",
-                    example="1990-01-15"
-                ),
-                "hear_about": openapi.Schema(
-                    type=openapi.TYPE_STRING,
-                    description="How did you hear about us",
-                    example="Social Media"
-                ),
+
                 "role": openapi.Schema(
                     type=openapi.TYPE_STRING,
                     description="User role",
                     example="student"
                 ),
-                "sub_role": openapi.Schema(
+
+                "passport": openapi.Schema(
                     type=openapi.TYPE_STRING,
-                    description="User role",
-                    example="student"
+                    description="Passport number",
+                    example="PA123456"
                 ),
-                "is_manager": openapi.Schema(
-                    type=openapi.TYPE_BOOLEAN,
-                    description="User role",
-                    example="true"
-                ),
-                "is_country_manager": openapi.Schema(
-                    type=openapi.TYPE_BOOLEAN,
-                    description="User role",
-                    example="true"
-                ),
-                "is_superuser": openapi.Schema(
-                    type=openapi.TYPE_BOOLEAN,
-                    description="User role",
-                    example="true"
-                ),
+
                 "is_staff": openapi.Schema(
                     type=openapi.TYPE_BOOLEAN,
-                    description="User role",
-                    example="true"
+                    description="Is staff user",
+                    example=False
                 ),
+
+                "is_superuser": openapi.Schema(
+                    type=openapi.TYPE_BOOLEAN,
+                    description="Is superuser",
+                    example=False
+                ),
+
                 "extras": openapi.Schema(
                     type=openapi.TYPE_OBJECT,
-                    description="Additional user metadata (JSON object)",
-                    example={"preferences": {"notifications": True}}
+                    description="Additional metadata",
+                    example={
+                        "preferences": {
+                            "notifications": True
+                        }
+                    }
                 ),
             }
         ),
+
         responses={
-            status.HTTP_201_CREATED: openapi.Schema(
-                type=openapi.TYPE_OBJECT,
-                properties={
-                    "message": openapi.Schema(
-                        type=openapi.TYPE_STRING,
-                        example="New user created successfully"
-                    ),
-                    "data": openapi.Schema(
-                        type=openapi.TYPE_OBJECT,
-                        properties={
-                            "id": openapi.Schema(
-                                type=openapi.TYPE_INTEGER,
-                                description="Unique user identifier",
-                                example=1
-                            ),
-                            "us_visa_status": openapi.Schema(
-                                type=openapi.TYPE_STRING,
-                                example="F1"
-                            ),
-                            "study_level": openapi.Schema(
-                                type=openapi.TYPE_STRING,
-                                example="Bachelor's"
-                            ),
-                            "full_name": openapi.Schema(
-                                type=openapi.TYPE_STRING,
-                                example="John Doe"
-                            ),
-                            "email": openapi.Schema(
-                                type=openapi.TYPE_STRING,
-                                format=openapi.FORMAT_EMAIL,
-                                example="john.doe@example.com"
-                            ),
-                            "country": openapi.Schema(
-                                type=openapi.TYPE_STRING,
-                                example="United States"
-                            ),
-                            "date_of_birth": openapi.Schema(
-                                type=openapi.TYPE_STRING,
-                                format=openapi.FORMAT_DATE,
-                                example="1990-01-15"
-                            ),
-                            "hear_about": openapi.Schema(
-                                type=openapi.TYPE_STRING,
-                                example="Social Media"
-                            ),
-                            "role": openapi.Schema(
-                                type=openapi.TYPE_STRING,
-                                example="student"
-                            ),
-                            "sub_role": openapi.Schema(
-                                type=openapi.TYPE_STRING,
-                                example="student"
-                            ),
-                            "is_active": openapi.Schema(
-                                type=openapi.TYPE_BOOLEAN,
-                                description="Whether the user account is active",
-                                example=True
-                            ),
-                            "is_manager": openapi.Schema(
-                                type=openapi.TYPE_BOOLEAN,
-                                description="Whether the user account is manager",
-                                example=True
-                            ),
-                            "is_country_manager": openapi.Schema(
-                                type=openapi.TYPE_BOOLEAN,
-                                description="Whether the user account is country manager",
-                                example=True
-                            ),
-                            "is_staff": openapi.Schema(
-                                type=openapi.TYPE_BOOLEAN,
-                                description="Whether the user is a staff member",
-                                example=False
-                            ),
-                            "is_superuser": openapi.Schema(
-                                type=openapi.TYPE_BOOLEAN,
-                                description="Whether the user is a superuser",
-                                example=False
-                            ),
-                            "created_at": openapi.Schema(
-                                type=openapi.TYPE_STRING,
-                                format=openapi.FORMAT_DATETIME,
-                                description="User creation timestamp",
-                                example="2024-01-15T10:30:00Z"
-                            ),
-                            "updated_at": openapi.Schema(
-                                type=openapi.TYPE_STRING,
-                                format=openapi.FORMAT_DATETIME,
-                                description="User last update timestamp",
-                                example="2024-01-15T10:30:00Z"
-                            ),
-                            "is_deleted": openapi.Schema(
-                                type=openapi.TYPE_BOOLEAN,
-                                description="Soft delete flag",
-                                example=False
-                            ),
-                            "extras": openapi.Schema(
-                                type=openapi.TYPE_OBJECT,
-                                description="Additional user metadata",
-                                example={"preferences": {"notifications": True}}
-                            ),
-                            "notes": openapi.Schema(
-                                type=openapi.TYPE_STRING,
-                                description="Notes about the user",
-                            )
-                        }
-                    ),
-                }
+            status.HTTP_201_CREATED: openapi.Response(
+                description="User created successfully",
+                schema=openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+
+                        "message": openapi.Schema(
+                            type=openapi.TYPE_STRING,
+                            example="Please Check Email For Verification..."
+                        ),
+
+                        "data": openapi.Schema(
+                            type=openapi.TYPE_OBJECT,
+                            properties={
+
+                                "id": openapi.Schema(
+                                    type=openapi.TYPE_INTEGER,
+                                    example=1
+                                ),
+
+                                "first_name": openapi.Schema(
+                                    type=openapi.TYPE_STRING,
+                                    example="John"
+                                ),
+
+                                "last_name": openapi.Schema(
+                                    type=openapi.TYPE_STRING,
+                                    example="Doe"
+                                ),
+
+                                "email": openapi.Schema(
+                                    type=openapi.TYPE_STRING,
+                                    example="john@example.com"
+                                ),
+
+                                "user_number": openapi.Schema(
+                                    type=openapi.TYPE_STRING,
+                                    example="+9779852314785"
+                                ),
+
+                                "country": openapi.Schema(
+                                    type=openapi.TYPE_STRING,
+                                    example="Nepal"
+                                ),
+
+                                "role": openapi.Schema(
+                                    type=openapi.TYPE_STRING,
+                                    example="student"
+                                ),
+
+                                "passport": openapi.Schema(
+                                    type=openapi.TYPE_STRING,
+                                    example="PA123456"
+                                ),
+
+                                "is_staff": openapi.Schema(
+                                    type=openapi.TYPE_BOOLEAN,
+                                    example=False
+                                ),
+
+                                "is_superuser": openapi.Schema(
+                                    type=openapi.TYPE_BOOLEAN,
+                                    example=False
+                                ),
+
+                                "created_at": openapi.Schema(
+                                    type=openapi.TYPE_STRING,
+                                    format=openapi.FORMAT_DATETIME,
+                                    example="2026-05-23T10:30:00Z"
+                                ),
+
+                                "updated_at": openapi.Schema(
+                                    type=openapi.TYPE_STRING,
+                                    format=openapi.FORMAT_DATETIME,
+                                    example="2026-05-23T10:30:00Z"
+                                ),
+
+                                "extras": openapi.Schema(
+                                    type=openapi.TYPE_OBJECT,
+                                    example={
+                                        "preferences": {
+                                            "notifications": True
+                                        }
+                                    }
+                                ),
+                            }
+                        )
+                    }
+                )
             ),
-            status.HTTP_400_BAD_REQUEST: openapi.Schema(
-                type=openapi.TYPE_OBJECT,
-                properties={
-                    "field_errors": openapi.Schema(
-                        type=openapi.TYPE_OBJECT,
-                        description="Field-specific validation errors",
-                        example={
-                            "full_name": ["Full name must be at most 20 characters long."],
-                            "password": ["Password must contain at least one uppercase letter."],
-                            "email": ["Please enter a valid email address."],
-                            "date_of_birth": ["You must be at least 16 years old."]
-                        }
-                    ),
-                    "non_field_errors": openapi.Schema(
-                        type=openapi.TYPE_ARRAY,
-                        items=openapi.Schema(type=openapi.TYPE_STRING),
-                        description="General validation errors",
-                        example=["This field is required."]
-                    ),
-                }
+
+            status.HTTP_400_BAD_REQUEST: openapi.Response(
+                description="Validation Error",
+                schema=openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                        "email": openapi.Schema(
+                            type=openapi.TYPE_ARRAY,
+                            items=openapi.Items(type=openapi.TYPE_STRING),
+                            example=["This field is required."]
+                        ),
+
+                        "password": openapi.Schema(
+                            type=openapi.TYPE_ARRAY,
+                            items=openapi.Items(type=openapi.TYPE_STRING),
+                            example=["Password is too short."]
+                        ),
+                    }
+                )
             ),
-            status.HTTP_409_CONFLICT: openapi.Schema(
-                type=openapi.TYPE_OBJECT,
-                properties={
-                    "error": openapi.Schema(
-                        type=openapi.TYPE_STRING,
-                        description="Conflict error message",
-                        example="User with this email already exists."
-                    ),
-                }
+
+            status.HTTP_409_CONFLICT: openapi.Response(
+                description="Conflict Error",
+                schema=openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                        "message": openapi.Schema(
+                            type=openapi.TYPE_STRING,
+                            example="User with this email already exists."
+                        )
+                    }
+                )
             ),
-            status.HTTP_500_INTERNAL_SERVER_ERROR: openapi.Schema(
-                type=openapi.TYPE_OBJECT,
-                properties={
-                    "error": openapi.Schema(
-                        type=openapi.TYPE_STRING,
-                        description="Internal server error message",
-                        example="An unexpected error occurred while creating the user."
-                    ),
-                }
+
+            status.HTTP_500_INTERNAL_SERVER_ERROR: openapi.Response(
+                description="Server Error",
+                schema=openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                        "message": openapi.Schema(
+                            type=openapi.TYPE_STRING,
+                            example="An unexpected error occurred."
+                        )
+                    }
+                )
             ),
         },
+
         tags=["Auth"]
     )
     def create(self, request, *args, **kwargs):

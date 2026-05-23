@@ -32,6 +32,7 @@ class AuthUserSerializers(serializers.ModelSerializer):
             "country",
             "role",
             "passport",
+            "is_verified",
             "is_staff",
             "is_superuser",
             "created_at",
@@ -108,4 +109,3 @@ class AuthUserSerializers(serializers.ModelSerializer):
             raise serializers.ValidationError("Passport must not contain any special characters.")
 
         return value
-

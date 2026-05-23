@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class UserRole(Enum):
     driver = "driver"
     admin = "admin"

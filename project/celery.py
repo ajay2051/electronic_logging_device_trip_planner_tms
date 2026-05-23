@@ -17,7 +17,7 @@ app.autodiscover_tasks()
 
 # You don't need both autodiscover_tasks() and explicit app list
 # Remove this line or use it instead of the above:
-# app.autodiscover_tasks(['f1_auth'])  # Just the app name, not the module
+# app.autodiscover_tasks(['tms_auth'])  # Just the app name, not the module
 
 @app.task(bind=True)
 def debug_task(self):

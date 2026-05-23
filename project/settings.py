@@ -11,10 +11,10 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
 from datetime import timedelta
+from pathlib import Path
 
 from django.conf import settings
 from dotenv import load_dotenv
-from pathlib import Path
 
 load_dotenv()
 
@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.gis',
 
     'corsheaders',
     'rest_framework',
@@ -55,6 +56,7 @@ INSTALLED_APPS = [
     'drf_yasg',
 
     'tms_auth.apps.TmsAuthConfig',
+    'route.apps.RouteConfig',
 
     'debug_toolbar',
 ]
@@ -104,7 +106,15 @@ DATABASES = {
         "PASSWORD": os.environ.get("DATABASE_PASSWORD", "supersecurepassword"),
         "HOST": os.environ.get("DATABASE_HOST", "localhost"),
         "PORT": os.environ.get("DATABASE_PORT", 5432),
-    }
+    },
+    'gis': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        "NAME": os.environ.get("DATABASE_NAME", "tms"),
+        "USER": os.environ.get("DATABASE_USERNAME", "tms"),
+        "PASSWORD": os.environ.get("DATABASE_PASSWORD", "supersecurepassword"),
+        "HOST": os.environ.get("DATABASE_HOST", "localhost"),
+        "PORT": os.environ.get("DATABASE_PORT", 5432),
+    },
 }
 
 REST_FRAMEWORK = {
@@ -114,7 +124,6 @@ REST_FRAMEWORK = {
     ),
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
     "PAGE_SIZE": 10,
-    'DEFAULT_RESPONSE_CLASS': 'project.response.DefaultResponse',
 }
 
 CORS_ALLOWED_ORIGINS = [
@@ -243,3 +252,5 @@ CACHES = {
         }
     }
 }
+
+DATABASE_ROUTERS = ['route.db_router.GISRouter']

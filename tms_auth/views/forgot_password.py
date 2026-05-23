@@ -9,9 +9,9 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from tms_auth.celery_tasks import send_mail_func
 from tms_auth.models import AuthUser
 from tms_auth.serializers.forgot_password import ForgotPasswordSerializer
-from tms_auth.celery_tasks import send_mail_func
 
 
 class ForgotPasswordView(APIView):
