@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 from route.models import Route
 from route.serializers import RouteSerializer
 from utils.pagination import CustomPagination
-from utils.user_permissions import DriverPermission
+from utils.user_permissions import DriverPermission, AdminPermission
 
 
 class CreateRouteAPIView(APIView):
@@ -163,8 +163,8 @@ class CreateRouteAPIView(APIView):
 
 
 class RouteListAPIView(APIView):
-    permission_classes = [DriverPermission]
-    # permission_classes = [AdminPermission]
+    # permission_classes = [DriverPermission]
+    permission_classes = [AdminPermission]
     serializer_class = RouteSerializer
     pagination_class = CustomPagination
 

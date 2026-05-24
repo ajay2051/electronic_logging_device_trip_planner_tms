@@ -7,13 +7,13 @@ from rest_framework.views import APIView
 from tms_auth.models import AuthUser
 from tms_auth.serializers.create_users import AuthUserSerializers
 from utils.pagination import CustomPagination
-from utils.user_permissions import DriverPermission
+from utils.user_permissions import AdminPermission
 
 
 class ListUserAPIView(APIView):
     serializer_class = AuthUserSerializers
-    permission_classes = [DriverPermission]
-    # permission_classes = [AdminPermission]
+    # permission_classes = [DriverPermission]
+    permission_classes = [AdminPermission]
     pagination_class = CustomPagination
 
     def get_queryset(self):
