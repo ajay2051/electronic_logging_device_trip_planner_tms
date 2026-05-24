@@ -57,6 +57,7 @@ INSTALLED_APPS = [
 
     'tms_auth.apps.TmsAuthConfig',
     'route.apps.RouteConfig',
+    'driverlog.apps.DriverlogConfig',
 
     'debug_toolbar',
 ]

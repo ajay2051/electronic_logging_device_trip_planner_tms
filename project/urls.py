@@ -54,6 +54,7 @@ urlpatterns = [
 
     path('api/v1/auth/', include('tms_auth.urls'), name='auth'),
     path('api/v1/route/', include('route.urls'), name='route'),
+    path('api/v1/log/', include('driverlog.urls'), name='log'),
 
     path("__debug__/", include("debug_toolbar.urls")),
 ]

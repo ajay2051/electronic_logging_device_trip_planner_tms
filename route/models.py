@@ -13,7 +13,3 @@ class Route(BaseModel):
     class Meta:
         app_label = 'route'
         db_table = 'route'
-
-
-# python manage.py migrate --database=default
-# python manage.py migrate --database=gis
