@@ -132,6 +132,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:5173',
     'https://localhost:5173',
     'https://127.0.0.1:5173',
+    'https://eld-tms-fe.vercel.app'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -139,6 +140,7 @@ CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1:5173',
     'https://localhost:5173',
     'https://127.0.0.1:5173',
+    'https://eld-tms-fe.vercel.app'
 ]
 
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
