@@ -230,7 +230,7 @@ class ListDriverLogsAPIView(APIView):
     pagination_class = CustomPagination
 
     def get_queryset(self):
-        return Driverlog.objects.all().order_by('-id')
+        return Driverlog.objects.select_related('route').order_by('-id')
 
     @swagger_auto_schema(
         operation_id="list_driver_logs",

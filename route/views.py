@@ -169,7 +169,7 @@ class RouteListAPIView(APIView):
     pagination_class = CustomPagination
 
     def get_queryset(self):
-        return Route.objects.all().order_by('-id')
+        return Route.objects.select_related('created_by').order_by('-id')
 
     @swagger_auto_schema(
         operation_id="list_routes",

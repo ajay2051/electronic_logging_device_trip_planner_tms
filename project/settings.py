@@ -101,21 +101,21 @@ AUTH_USER_MODEL = "tms_auth.AuthUser"
 
 DATABASES = {
     'default': {
-        "ENGINE": "django.db.backends.postgresql",
+        "ENGINE": "django.contrib.gis.db.backends.postgis",
         "NAME": os.environ.get("DATABASE_NAME", "tms"),
         "USER": os.environ.get("DATABASE_USERNAME", "tms"),
         "PASSWORD": os.environ.get("DATABASE_PASSWORD", "supersecurepassword"),
         "HOST": os.environ.get("DATABASE_HOST", "localhost"),
         "PORT": os.environ.get("DATABASE_PORT", 5432),
     },
-    'gis': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        "NAME": os.environ.get("DATABASE_NAME", "tms"),
-        "USER": os.environ.get("DATABASE_USERNAME", "tms"),
-        "PASSWORD": os.environ.get("DATABASE_PASSWORD", "supersecurepassword"),
-        "HOST": os.environ.get("DATABASE_HOST", "localhost"),
-        "PORT": os.environ.get("DATABASE_PORT", 5432),
-    },
+    # 'gis': {
+    #     'ENGINE': 'django.contrib.gis.db.backends.postgis',
+    #     "NAME": os.environ.get("DATABASE_NAME", "tms"),
+    #     "USER": os.environ.get("DATABASE_USERNAME", "tms"),
+    #     "PASSWORD": os.environ.get("DATABASE_PASSWORD", "supersecurepassword"),
+    #     "HOST": os.environ.get("DATABASE_HOST", "localhost"),
+    #     "PORT": os.environ.get("DATABASE_PORT", 5432),
+    # },
 }
 
 REST_FRAMEWORK = {
@@ -256,4 +256,4 @@ CACHES = {
     }
 }
 
-DATABASE_ROUTERS = ['route.db_router.GISRouter']
+# DATABASE_ROUTERS = ['route.db_router.GISRouter']
